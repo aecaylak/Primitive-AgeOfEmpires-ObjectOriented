@@ -64,9 +64,11 @@ public class Tower extends Building implements TowerInterface {
 
 
                 } else {
+                    player.turn2();
                     throw new AgeOfEmpiresException();
                 }
             } else {
+                player.turn2();
                 throw new AgeOfEmpiresException();
             }
 

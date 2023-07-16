@@ -33,39 +33,41 @@ public class Worker extends Human implements WorkerInterface {
         this.attackX = (x - 1);
         this.attackY = (y - 1);
 
-            if ((this.x >= attackX - 1 & this.x <= attackX + 1) & (this.y <= attackY + 1 & this.y >= attackY - 1) & player.turnController() ) {
-                if (map.map[attackX][attackY].building != null && map.map[attackX][attackY].building.getPlayer() != this.player) {
+        if ((this.x >= attackX - 1 & this.x <= attackX + 1) & (this.y <= attackY + 1 & this.y >= attackY - 1) & player.turnController()) {
+            if (map.map[attackX][attackY].building != null && map.map[attackX][attackY].building.getPlayer() != this.player) {
 
-                    map.map[attackX][attackY].building.setLifePoints(map.map[attackX][attackY].building.getLifePoints() - damage1);
+                map.map[attackX][attackY].building.setLifePoints(map.map[attackX][attackY].building.getLifePoints() - damage1);
 
-                    if (map.map[attackX][attackY].building.getLifePoints() <= 0) {
-                        map.map[attackX][attackY].building.death();
-
-                    } else {
-                        map.map[attackX][attackY].building.reattack(this.y + 1, this.x + 1);
-                    }
-
-                } else if (map.map[attackX][attackY].human != null && map.map[attackX][attackY].human.getClass() == Spearman.class && map.map[attackX][attackY].human.getPlayer() != this.player) {
-
-                    map.map[attackX][attackY].human.attack2(this.y + 1, this.x + 1);
-
-                } else if (map.map[attackX][attackY].human != null && map.map[attackX][attackY].human.getPlayer() != this.player) {
-
-                    map.map[attackX][attackY].human.setLifePoints(map.map[attackX][attackY].human.getLifePoints() - damage1);
-                    if (map.map[attackX][attackY].human.getLifePoints() <= 0) {
-                        map.map[attackX][attackY].human.death();
-
-                    } else {
-                        map.map[attackX][attackY].human.reattack(this.y + 1, this.x + 1);
-                    }
-
+                if (map.map[attackX][attackY].building.getLifePoints() <= 0) {
+                    map.map[attackX][attackY].building.death();
 
                 } else {
-                    throw new AgeOfEmpiresException();
+                    map.map[attackX][attackY].building.reattack(this.y + 1, this.x + 1);
                 }
+
+            } else if (map.map[attackX][attackY].human != null && map.map[attackX][attackY].human.getClass() == Spearman.class && map.map[attackX][attackY].human.getPlayer() != this.player) {
+
+                map.map[attackX][attackY].human.attack2(this.y + 1, this.x + 1);
+
+            } else if (map.map[attackX][attackY].human != null && map.map[attackX][attackY].human.getPlayer() != this.player) {
+
+                map.map[attackX][attackY].human.setLifePoints(map.map[attackX][attackY].human.getLifePoints() - damage1);
+                if (map.map[attackX][attackY].human.getLifePoints() <= 0) {
+                    map.map[attackX][attackY].human.death();
+
+                } else {
+                    map.map[attackX][attackY].human.reattack(this.y + 1, this.x + 1);
+                }
+
+
             } else {
+                player.turn2();
                 throw new AgeOfEmpiresException();
             }
+        } else {
+            player.turn2();
+            throw new AgeOfEmpiresException();
+        }
 
     }
 
@@ -92,71 +94,86 @@ public class Worker extends Human implements WorkerInterface {
 
     }
 
+    int toX;
+    int toY;
 
     @Override
     public void move(int y, int x) throws AgeOfEmpiresException {
         int oldX = this.x;
         int oldY = this.y;
-        this.x = (x - 1);
-        this.y = (y - 1);
 
-            if(player.turnController()){
-                if (map.map[this.x][this.y].human == null & map.map[this.x][this.y].building == null) { //kod p
-                    if (this.x <= oldX + 3 & this.x >= oldX - 3 & this.y == oldY) {
-                        map.map[this.x][this.y].human = this;
-                        map.map[oldX][oldY].human = null;
-                    } else if ((this.x >= oldX - 2 & this.x <= oldX + 2) & (this.y == oldY + 1 || this.y == oldY - 1)) {
-                        map.map[this.x][this.y].human = this;
-                        map.map[oldX][oldY].human = null;
-                    } else if ((this.x >= oldX - 1 & this.x <= oldX + 1) & (this.y == oldY + 2 || this.y == oldY - 2)) {
-                        map.map[this.x][this.y].human = this;
-                        map.map[oldX][oldY].human = null;
-                    } else if ((this.x == oldX) & (this.y == oldY + 3 || this.y == oldY - 3)) {
-                        map.map[this.x][this.y].human = this;
-                        map.map[oldX][oldY].human = null;
-                    } else {
-                        throw new AgeOfEmpiresException();
-                    }
+        this.toX = (x - 1);
+        this.toY = (y - 1);
+
+        if (player.turnController()) {
+            if (map.map[this.toX][this.toY].human == null & map.map[this.toX][this.toY].building == null) { //kod p
+                if (this.toX <= oldX + 3 & this.toX >= oldX - 3 & this.toY == oldY) {
+                    this.x = (x - 1);
+                    this.y = (y - 1);
+                    map.map[this.toX][this.toY].human = this;
+                    map.map[oldX][oldY].human = null;
+                } else if ((this.toX >= oldX - 2 & this.toX <= oldX + 2) & (this.toY == oldY + 1 || this.toY == oldY - 1)) {
+                    this.x = (x - 1);
+                    this.y = (y - 1);
+                    map.map[this.toX][this.toY].human = this;
+                    map.map[oldX][oldY].human = null;
+                } else if ((this.toX >= oldX - 1 & this.toX <= oldX + 1) & (this.toY == oldY + 2 || this.toY == oldY - 2)) {
+                    this.x = (x - 1);
+                    this.y = (y - 1);
+                    map.map[this.toX][this.toY].human = this;
+                    map.map[oldX][oldY].human = null;
+                } else if ((this.toX == oldX) & (this.toY == oldY + 3 || this.toY == oldY - 3)) {
+                    this.x = (x - 1);
+                    this.y = (y - 1);
+                    map.map[this.toX][this.toY].human = this;
+                    map.map[oldX][oldY].human = null;
                 } else {
+                    player.turn2();
                     throw new AgeOfEmpiresException();
                 }
-            }else {
+            } else {
+                player.turn2();
                 throw new AgeOfEmpiresException();
             }
+        } else {
+            player.turn2();
+            throw new AgeOfEmpiresException();
+        }
     }
 
     @Override
     public void build(Building b) throws AgeOfEmpiresException {
-        if(player.turnController()){
+        if (player.turnController()) {
             this.building = b;
 
-                if (building.getClass() == University.class && this.player.getGold() - 50 >= 0 && this.player.getWood() - 30 >= 0 && this.player.getStone() - 5 >= 0) {
-                    this.map.map[this.x][this.y].building = new University(this.player);
-                    this.map.map[this.x][this.y].building.setX(this.x);
-                    this.map.map[this.x][this.y].building.setY(this.y);
-                    this.player.setGold(this.player.getGold() - 50);
-                    this.player.setWood(this.player.getWood() - 30);
-                    this.player.setStone(this.player.getStone() - 5);
+            if (building.getClass() == University.class && this.player.getGold() - 50 >= 0 && this.player.getWood() - 30 >= 0 && this.player.getStone() - 5 >= 0) {
+                this.map.map[this.x][this.y].building = new University(this.player);
+                this.map.map[this.x][this.y].building.setX(this.x);
+                this.map.map[this.x][this.y].building.setY(this.y);
+                this.player.setGold(this.player.getGold() - 50);
+                this.player.setWood(this.player.getWood() - 30);
+                this.player.setStone(this.player.getStone() - 5);
 
-                } else if (building.getClass() == Tower.class && this.player.getGold() - 5 >= 0 && this.player.getWood() - 10 >= 0 && this.player.getStone() - 40 >= 0) {
-                    player.towers.add(new Tower(player, this.x, this.y));
-                    this.player.getTower(towerCount).setX(this.x);
-                    this.player.getTower(towerCount).setY(this.y);
-                    this.player.setTowerCount(towerCount++); //1
+            } else if (building.getClass() == Tower.class && this.player.getGold() - 5 >= 0 && this.player.getWood() - 10 >= 0 && this.player.getStone() - 40 >= 0) {
+                player.towers.add(new Tower(player, this.x, this.y));
+                this.player.getTower(towerCount).setX(this.x);
+                this.player.getTower(towerCount).setY(this.y);
+                this.player.setTowerCount(towerCount++); //1
 
 
-                    this.player.setGold(this.player.getGold() - 5);
-                    this.player.setWood(this.player.getWood() - 10);
-                    this.player.setStone(this.player.getStone() - 40);
-                } else {
-                    throw new AgeOfEmpiresException();
-                }
+                this.player.setGold(this.player.getGold() - 5);
+                this.player.setWood(this.player.getWood() - 10);
+                this.player.setStone(this.player.getStone() - 40);
+            } else {
+                player.turn2();
+                throw new AgeOfEmpiresException();
+            }
 
         }
     }
 
 
-    public void death(){
+    public void death() {
         player.workers.remove(this);
         player.map.map[this.x][this.y].human = null;
     }

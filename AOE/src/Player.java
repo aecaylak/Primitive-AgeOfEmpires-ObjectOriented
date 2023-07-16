@@ -37,31 +37,37 @@ public class Player implements PlayerInterface, Serializable {
 
     }
 
-    public void lose(){
-        for (int i =0; i<workers.size();i++){
-            map.map[workers.get(i).getX()][workers.get(i).getY()].human=null;
+    public void lose() {
+        for (int i = 0; i < workers.size(); i++) {
+            map.map[workers.get(i).getX()][workers.get(i).getY()].human = null;
         }
-        for (int i =0; i<soldiers.size();i++){
-            map.map[soldiers.get(i).getX()][soldiers.get(i).getY()].human=null;
+        for (int i = 0; i < soldiers.size(); i++) {
+            map.map[soldiers.get(i).getX()][soldiers.get(i).getY()].human = null;
         }
-        for (int i =0; i<towers.size();i++){
-            map.map[towers.get(i).getX()][towers.get(i).getY()].building=null;
+        for (int i = 0; i < towers.size(); i++) {
+            map.map[towers.get(i).getX()][towers.get(i).getY()].building = null;
         }
-        map.map[university.getX()][university.getY()].building=null;
+        if (university != null) {
+            map.map[university.getX()][university.getY()].building = null;
+        }
         map.map[mainBuilding.getX()][mainBuilding.getY()].building = null;
 
-        if(g.player.size() == 2) {
+
+        if (g.player.size() == 2) {
             System.out.println("Oyun bitti");
         }
         g.player.remove(this);
     }
+
     @Override
     public void pass() throws AgeOfEmpiresException {
         turnController();
     }
-    public void turn2(){
+
+    public void turn2() {
         g.turn2();
     }
+
     public boolean turnController() throws AgeOfEmpiresException {
         if (g.turnControl(playerSira)) {
             Gold += 2;
@@ -76,67 +82,67 @@ public class Player implements PlayerInterface, Serializable {
     @Override
     public void purchase(Item item) throws AgeOfEmpiresException {
 
-            if (getSoldierCount() + getWorkerCount() < 20 && turnController()) {
-                if (item.getClass() == Worker.class) {
-                    if (Gold - 1 >= 0) {
-                        workers.add(new Worker(map, mainBuilding.getX(), mainBuilding.getY(), this));
-                        Gold -= 1;
-                        WorkerCount++;
-                    } else {
-                        throw new AgeOfEmpiresException();
-                    }
-                } else if (item.getClass() == Swordman.class) {
-                    if (Gold - 2 >= 0 && Wood - 5 >= 0) {
-                        soldiers.add(new Swordman(map, mainBuilding.getX(), mainBuilding.getY(), infantryBoost, this));
-                        Gold -= 2;
-                        Wood -= 5;
-                        SoldierCount++;
-                    } else {
-                        throw new AgeOfEmpiresException();
-                    }
-                } else if (item.getClass() == Archer.class) {
-                    if (Gold - 2 >= 0 && Wood - 5 >= 0) {
-                        soldiers.add(new Archer(map, mainBuilding.getX(), mainBuilding.getY(), infantryBoost, this));
-                        Gold -= 2;
-                        Wood -= 5;
-                        SoldierCount++;
-                    } else {
-                        throw new AgeOfEmpiresException();
-                    }
-                } else if (item.getClass() == Spearman.class) {
-                    if (Gold - 3 >= 0 && Wood - 2 >= 0) {
-                        soldiers.add(new Spearman(map, mainBuilding.getX(), mainBuilding.getY(), infantryBoost, this));
-                        Gold -= 3;
-                        Wood -= 2;
-                        SoldierCount++;
-                    } else {
-                        throw new AgeOfEmpiresException();
-                    }
-                } else if (item.getClass() == Cavalry.class) {
-                    if (Gold - 10 >= 0 && Wood - 3 >= 0) {
-                        soldiers.add(new Cavalry(map, mainBuilding.getX(), mainBuilding.getY(), cavalryBoost, this));
-                        Gold -= 10;
-                        Wood -= 3;
-                        SoldierCount++;
-                    } else {
-                        throw new AgeOfEmpiresException();
-                    }
-                } else if (item.getClass() == Catapult.class) {
-                    if (Gold - 20 >= 0 && Wood - 30 >= 0 && Stone - 5 >= 0) {
-                        soldiers.add(new Catapult(map, mainBuilding.getX(), mainBuilding.getY(), catapultBoost, this));
-                        Gold -= 20;
-                        Wood -= 30;
-                        Stone -= 5;
-                        SoldierCount++;
-                    } else {
-                        throw new AgeOfEmpiresException();
-                    }
+        if (getSoldierCount() + getWorkerCount() < 20 && turnController()) {
+            if (item.getClass() == Worker.class) {
+                if (Gold - 1 >= 0) {
+                    workers.add(new Worker(map, mainBuilding.getX(), mainBuilding.getY(), this));
+                    Gold -= 1;
+                    WorkerCount++;
+                } else {
+                    throw new AgeOfEmpiresException();
+                }
+            } else if (item.getClass() == Swordman.class) {
+                if (Gold - 2 >= 0 && Wood - 5 >= 0) {
+                    soldiers.add(new Swordman(map, mainBuilding.getX(), mainBuilding.getY(), infantryBoost, this));
+                    Gold -= 2;
+                    Wood -= 5;
+                    SoldierCount++;
+                } else {
+                    throw new AgeOfEmpiresException();
+                }
+            } else if (item.getClass() == Archer.class) {
+                if (Gold - 2 >= 0 && Wood - 5 >= 0) {
+                    soldiers.add(new Archer(map, mainBuilding.getX(), mainBuilding.getY(), infantryBoost, this));
+                    Gold -= 2;
+                    Wood -= 5;
+                    SoldierCount++;
+                } else {
+                    throw new AgeOfEmpiresException();
+                }
+            } else if (item.getClass() == Spearman.class) {
+                if (Gold - 3 >= 0 && Wood - 2 >= 0) {
+                    soldiers.add(new Spearman(map, mainBuilding.getX(), mainBuilding.getY(), infantryBoost, this));
+                    Gold -= 3;
+                    Wood -= 2;
+                    SoldierCount++;
+                } else {
+                    throw new AgeOfEmpiresException();
+                }
+            } else if (item.getClass() == Cavalry.class) {
+                if (Gold - 10 >= 0 && Wood - 3 >= 0) {
+                    soldiers.add(new Cavalry(map, mainBuilding.getX(), mainBuilding.getY(), cavalryBoost, this));
+                    Gold -= 10;
+                    Wood -= 3;
+                    SoldierCount++;
+                } else {
+                    throw new AgeOfEmpiresException();
+                }
+            } else if (item.getClass() == Catapult.class) {
+                if (Gold - 20 >= 0 && Wood - 30 >= 0 && Stone - 5 >= 0) {
+                    soldiers.add(new Catapult(map, mainBuilding.getX(), mainBuilding.getY(), catapultBoost, this));
+                    Gold -= 20;
+                    Wood -= 30;
+                    Stone -= 5;
+                    SoldierCount++;
                 } else {
                     throw new AgeOfEmpiresException();
                 }
             } else {
                 throw new AgeOfEmpiresException();
             }
+        } else {
+            throw new AgeOfEmpiresException();
+        }
 
     }
 

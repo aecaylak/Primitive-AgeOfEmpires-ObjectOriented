@@ -40,6 +40,7 @@ public class Game implements GameInterface, Serializable {
                     player.get(i).firstWorker();
                 }
             } else {
+                turn2();
                 throw new AgeOfEmpiresException();
             }
 
@@ -51,7 +52,6 @@ public class Game implements GameInterface, Serializable {
 
 
             if (playerTurn == x) {
-                System.out.println(playerTurn);
                 playerTurn++;
                 if (playerTurn == numberOfPlayer + 1) {
                     playerTurn = 1;

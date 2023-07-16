@@ -59,6 +59,7 @@ public class University extends Building implements UniversityInterface {
                     }
                 }
             } else {
+                player.turn2();
                 throw new AgeOfEmpiresException();
             }
 
@@ -77,6 +78,7 @@ public class University extends Building implements UniversityInterface {
                     }
                 }
             } else {
+                player.turn2();
                 throw new AgeOfEmpiresException();
             }
 
@@ -96,6 +98,7 @@ public class University extends Building implements UniversityInterface {
                     }
                 }
             } else {
+                player.turn2();
                 throw new AgeOfEmpiresException();
             }
     }
