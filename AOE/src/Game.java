@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+
 public class Game implements GameInterface {
     Map map = new Map();
 
-    Player[] players;
+    ArrayList<Player> player = new ArrayList<>();
     int numberOfPlayer;
 
 
@@ -10,16 +12,15 @@ public class Game implements GameInterface {
         try {
 
             if (NumberOfPlayers <= 4 && NumberOfPlayers >= 2) {
-                players = new Player[NumberOfPlayers];
 
                 for (int i = 0; i < NumberOfPlayers; i++) {  //templi mi yapmalıydım bilgim yok MUSTI'ye sor
-                    players[i] = new Player(map, i, this);
+                    player.add(new Player(map, i, this)) /*= new Player(map, i, this)*/;
                 }
 
-                map.MakeMap(NumberOfPlayers, players);
+                map.MakeMap(NumberOfPlayers, player);
 
                 for (int i = 0; i < NumberOfPlayers; i++) {  //templi mi yapmalıydım bilgim yok MUSTI'ye sor
-                    players[i].firstWorker();
+                    player.get(i).firstWorker();
                 }
             } else {
                 throw new AgeOfEmpiresException();
@@ -52,7 +53,7 @@ public class Game implements GameInterface {
     @Override
     public Player getPlayer(int x) {
 
-        return players[x];
+        return player.get(x);
     }
 
     @Override

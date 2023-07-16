@@ -2,6 +2,7 @@ public class MainBuilding extends Building{
 
     private int lifePoints = 100;
     private String Symbol = "M";
+    Player player;
 
     private int x;
     private int y;
@@ -10,13 +11,14 @@ public class MainBuilding extends Building{
 
     }
     MainBuilding(Player player){
+        this.player = player;
         player.mainBuilding = this;
     }
 
 
     public void death() {
         System.out.println(this.x + " / " + this.y);
-
+        player.lose();
         //player.map.map[this.x][this.y].building = null; KAYBETTIN!
     }
 

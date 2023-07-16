@@ -116,14 +116,14 @@ public class Main {
         g.getPlayer(0).getSoldier(0).attack(100,50);
         g.getPlayer(1).getSoldier(0).attack(3,3);
         g.getPlayer(0).getSoldier(0).attack(100,50);
-        g.getPlayer(1).pass();
+        g.getPlayer(1).getWorker(0).move(98,48);
         g.getPlayer(0).getSoldier(0).attack(100,50);
 
 
 
-        System.out.println(g.getPlayer(1).getGold());
-        System.out.println(g.getPlayer(1).getWood());
-        System.out.println(g.getPlayer(1).getStone());
+        System.out.println(g.getPlayer(0).getGold());
+        System.out.println(g.getPlayer(0).getWood());
+        System.out.println(g.getPlayer(0).getStone());
 
         g.getMap().print();
 

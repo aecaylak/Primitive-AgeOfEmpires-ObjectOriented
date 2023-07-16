@@ -1,9 +1,11 @@
+import java.util.ArrayList;
+
 public class Map implements MapInterface {
 
     Item[][] map; //oyun map'i burda tutuluyor
 
 
-    public void MakeMap(int NumberOfPlayers, Player[] players){
+    public void MakeMap(int NumberOfPlayers, ArrayList<Player> players){
 
         Item[][] tempMap = new Item[50][100]; //temp Mapte
 
@@ -20,28 +22,28 @@ public class Map implements MapInterface {
         for (int i =0;i<CountMainBuilding;i++){
 
             if(i==0){
-                tempMap[0][0].building = new MainBuilding(players[0]);
-                players[i].mainBuilding.setX(0);
-                players[i].mainBuilding.setY(0);
+                tempMap[0][0].building = new MainBuilding(players.get(0));
+                players.get(i).mainBuilding.setX(0);
+                players.get(i).mainBuilding.setY(0);
 
 
 
             }else if (i==1){
-                tempMap[49][99].building = new MainBuilding(players[1]);
-                players[i].mainBuilding.setX(49);
-                players[i].mainBuilding.setY(99);
+                tempMap[49][99].building = new MainBuilding(players.get(i));
+                players.get(i).mainBuilding.setX(49);
+                players.get(i).mainBuilding.setY(99);
 
 
             } else if (i==2) {
-                tempMap[49][0].building =new MainBuilding(players[2]);
-                players[i].mainBuilding.setX(49);
-                players[i].mainBuilding.setY(0);
+                tempMap[49][0].building =new MainBuilding(players.get(i));
+                players.get(i).mainBuilding.setX(49);
+                players.get(i).mainBuilding.setY(0);
 
 
             } else if (i==3) {
-                tempMap[0][99].building =new MainBuilding(players[3]);
-                players[i].mainBuilding.setX(0);
-                players[i].mainBuilding.setY(99);
+                tempMap[0][99].building =new MainBuilding(players.get(i));
+                players.get(i).mainBuilding.setX(0);
+                players.get(i).mainBuilding.setY(99);
 
 
             }

@@ -18,6 +18,7 @@ public class Player implements PlayerInterface {
     ArrayList<Soldier> soldiers = new ArrayList<>();
     ArrayList<Worker> workers = new ArrayList<>();
     ArrayList<Tower> towers = new ArrayList<>();
+    ArrayList<University> universite = new ArrayList<>();
 
     University university;
     Game g;
@@ -36,7 +37,20 @@ public class Player implements PlayerInterface {
     }
 
     public void lose(){
-
+        for (int i =0; i<workers.size();i++){
+            map.map[workers.get(i).getX()][workers.get(i).getY()].human=null;
+        }
+        for (int i =0; i<soldiers.size();i++){
+            map.map[soldiers.get(i).getX()][soldiers.get(i).getY()].human=null;
+        }
+        for (int i =0; i<towers.size();i++){
+            map.map[towers.get(i).getX()][towers.get(i).getY()].building=null;
+        }
+        for (int i =0; i<universite.size();i++){
+            map.map[universite.get(i).getX()][universite.get(i).getY()].building=null;
+        }
+        map.map[mainBuilding.getX()][mainBuilding.getY()].building = null;
+        g.player.remove(this);
     }
     @Override
     public void pass() {
