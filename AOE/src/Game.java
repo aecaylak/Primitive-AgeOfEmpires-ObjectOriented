@@ -49,20 +49,23 @@ public class Game implements GameInterface, Serializable {
 
     public boolean turnControl(int x) throws AgeOfEmpiresException {
 
+
             if (playerTurn == x) {
+                System.out.println(playerTurn);
                 playerTurn++;
                 if (playerTurn == numberOfPlayer + 1) {
                     playerTurn = 1;
                 }
+
                 return true;
             } else {
-                throw new AgeOfEmpiresException();
+                return false;
             }
 
     }
     public void turn2(){
         if(playerTurn == 1){
-            playerTurn= 4;
+            playerTurn= player.size();
         }else{
             playerTurn--;
         }

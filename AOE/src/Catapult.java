@@ -28,24 +28,32 @@ public class Catapult extends Soldier {
         player.map.map[this.x][this.y].human = null;
     }
 
+    int toX;
+    int toY;
     @Override
     public void move(int y, int x) throws AgeOfEmpiresException {
         int oldX = this.x;
         int oldY = this.y;
-        this.x = x - 1;
-        this.y = y - 1;
+        this.toX = x - 1;
+        this.toY = y - 1;
 
-            if (player.turnController() & map.map[this.x][this.y].human == null & map.map[this.x][this.y].building == null) {
-                if ((this.x == oldX + 1 || this.x == oldX - 1) & this.y == oldY) {
-                    map.map[this.x][this.y].human = this;
+            if (player.turnController() & map.map[this.toX][this.toY].human == null & map.map[this.toX][this.toY].building == null) {
+                if ((this.toX == oldX + 1 || this.toX == oldX - 1) & this.toY == oldY) {
+                    this.x = x - 1;
+                    this.y = y - 1;
+                    map.map[this.toX][this.toY].human = this;
                     map.map[oldX][oldY].human = null;
-                } else if ((this.x == oldX) & (this.y == oldY + 1 || this.y == oldY - 1)) {
-                    map.map[this.x][this.y].human = this;
+                } else if ((this.toX == oldX) & (this.toY == oldY + 1 || this.toY == oldY - 1)) {
+                    this.x = x - 1;
+                    this.y = y - 1;
+                    map.map[this.toX][this.toY].human = this;
                     map.map[oldX][oldY].human = null;
                 } else {
+                    player.turn2();
                     throw new AgeOfEmpiresException();
                 }
             } else {
+                player.turn2();
                 throw new AgeOfEmpiresException();
             }
 
@@ -90,9 +98,11 @@ public class Catapult extends Soldier {
 
 
                 } else {
+                    player.turn2();
                     throw new AgeOfEmpiresException();
                 }
             } else {
+                player.turn2();
                 throw new AgeOfEmpiresException();
             }
 
