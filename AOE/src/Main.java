@@ -1,16 +1,25 @@
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AgeOfEmpiresException {
 
-        //Game g = new Game(2);
-        Game g = new Game("saveBinary.txt", true);
+        try{
+            Game g = new Game(2);
+            //Game g = new Game("saveBinary.txt", true);
 
-        g.getPlayer(0).getSoldier(0).move(99,50);
-        g.getPlayer(0).getSoldier(0).attack(100,50);
-        g.getPlayer(0).getSoldier(0).attack(100,50);
 
-//
-//        g.getPlayer(0).purchase(new Cavalry());
-//        g.getPlayer(1).purchase(new Cavalry());
+            g.getPlayer(0).purchase(new Archer());
+            g.getPlayer(1).purchase(new Cavalry());
+
+            g.getPlayer(0).getSoldier(0).move(2, 2);
+            g.getPlayer(1).getSoldier(0).move(95, 50);
+            g.getPlayer(0).getSoldier(0).move(3, 2);
+            g.getPlayer(1).getSoldier(0).move(90, 50);
+            g.getPlayer(0).getSoldier(0).move(3, 3);
+
+            g.getMap().print();
+        } catch (AgeOfEmpiresException e) {
+            throw new RuntimeException(e);
+        }
+
 //        g.getPlayer(0).getSoldier(0).move(7, 4);
 //        g.getPlayer(1).getSoldier(0).move(94, 47);
 //        g.getPlayer(0).getSoldier(0).move(13, 7);
@@ -67,10 +76,13 @@ public class Main {
 //        g.getPlayer(0).getSoldier(0).attack(100, 50);
 //        g.getPlayer(1).getSoldier(0).move(15, 1);
 //        g.getPlayer(1).getSoldier(0).move(6, 1);
-//        for (int i = 0; i < 14; i++) {
+//        for (int i = 0; i < 1; i++) {
 //            g.getPlayer(0).getSoldier(0).attack(100, 50);
+//            g.getPlayer(1).pass();
 //        }
-//        g.getPlayer(0).getSoldier(0).move(95,50);
+//        g.getPlayer(0).getSoldier(0).move(85,50);
+//        g.getPlayer(1).pass();
+//        g.getPlayer(0).getSoldier(0).move(96,50);
 
 
 
@@ -141,7 +153,7 @@ public class Main {
 //        System.out.println("\n STONE: " + g.getPlayer(1).getStone());
 
         //g.save_binary("saveBinary.txt");
-        g.getMap().print();
+
 
     }
 }

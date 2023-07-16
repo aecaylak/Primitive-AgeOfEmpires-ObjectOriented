@@ -47,8 +47,8 @@ public class University extends Building implements UniversityInterface {
     }
 
     @Override
-    public void trainInfantry() {
-        try {
+    public void trainInfantry() throws AgeOfEmpiresException {
+
             if (player.turnController() && player.getGold() >= 50) {
                 this.player.setGold(this.player.getGold() - 50);
                 player.infantryBoost++;
@@ -61,14 +61,12 @@ public class University extends Building implements UniversityInterface {
             } else {
                 throw new AgeOfEmpiresException();
             }
-        } catch (AgeOfEmpiresException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
     @Override
-    public void trainCavalry() {
-        try {
+    public void trainCavalry() throws AgeOfEmpiresException {
+
             if (player.turnController() && player.getGold() >= 50) {
                 this.player.setGold(this.player.getGold() - 50);
                 player.cavalryBoost++;
@@ -81,15 +79,13 @@ public class University extends Building implements UniversityInterface {
             } else {
                 throw new AgeOfEmpiresException();
             }
-        } catch (AgeOfEmpiresException e) {
-            throw new RuntimeException(e);
-        }
+
 
     }
 
     @Override
-    public void trainCatapult() {
-        try {
+    public void trainCatapult() throws AgeOfEmpiresException {
+
             if (player.turnController() && player.getGold() >= 50) {
                 this.player.setGold(this.player.getGold() - 50);
                 player.catapultBoost++;
@@ -97,15 +93,11 @@ public class University extends Building implements UniversityInterface {
                     if (player.soldiers.get(i).getClass() == Catapult.class) {
                         player.soldiers.get(i).setLifePoints(player.soldiers.get(i).getLifePoints() + 1);
                         player.soldiers.get(i).setDamage(player.soldiers.get(i).getDamage() + 1);
-
                     }
                 }
             } else {
                 throw new AgeOfEmpiresException();
             }
-        } catch (AgeOfEmpiresException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 

@@ -18,41 +18,37 @@ public class Game implements GameInterface, Serializable {
                 this.numberOfPlayer = game.numberOfPlayer;
                 this.map = game.map;
                 this.playerTurn = game.playerTurn;
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
     }
 
-    public Game(int NumberOfPlayers) {
+    public Game(int NumberOfPlayers) throws AgeOfEmpiresException {
         this.numberOfPlayer = NumberOfPlayers;
-        try {
 
             if (NumberOfPlayers <= 4 && NumberOfPlayers >= 2) {
 
-                for (int i = 0; i < NumberOfPlayers; i++) {  //templi mi yapmalıydım bilgim yok MUSTI'ye sor
-                    player.add(new Player(map, i, this)) /*= new Player(map, i, this)*/;
+                for (int i = 0; i < NumberOfPlayers; i++) {
+                    player.add(new Player(map, i, this));
                 }
 
                 map.MakeMap(NumberOfPlayers, player);
 
-                for (int i = 0; i < NumberOfPlayers; i++) {  //templi mi yapmalıydım bilgim yok MUSTI'ye sor
+                for (int i = 0; i < NumberOfPlayers; i++) {
                     player.get(i).firstWorker();
                 }
             } else {
                 throw new AgeOfEmpiresException();
             }
-        } catch (AgeOfEmpiresException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
-    int playerTurn = 1; //1-2-3-4 diye tutulur!
+    int playerTurn = 1;
 
-    public boolean turnControl(int x) {
-        try {
+    public boolean turnControl(int x) throws AgeOfEmpiresException {
+
             if (playerTurn == x) {
                 playerTurn++;
                 if (playerTurn == numberOfPlayer + 1) {
@@ -61,13 +57,17 @@ public class Game implements GameInterface, Serializable {
                 return true;
             } else {
                 throw new AgeOfEmpiresException();
-
             }
-        } catch (AgeOfEmpiresException e) {
-            return false;
-        }
-    }
 
+    }
+    public void turn2(){
+        if(playerTurn == 1){
+            playerTurn= 4;
+        }else{
+            playerTurn--;
+        }
+
+    }
 
     @Override
     public Player getPlayer(int x) {
@@ -80,11 +80,11 @@ public class Game implements GameInterface, Serializable {
         return map;
     }
 
-
     @Override
     public void save_text(String filename) {
 
     }
+
 
     @Override
     public void save_binary(String filename) {

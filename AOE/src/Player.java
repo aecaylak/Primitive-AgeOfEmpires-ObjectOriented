@@ -24,7 +24,7 @@ public class Player implements PlayerInterface, Serializable {
     University university;
     Game g;
 
-    int playerSira; //1-2-3-4 diye tutulur
+    int playerSira;
 
     Player(Map map, int i, Game game) {
         this.map = map;
@@ -56,27 +56,26 @@ public class Player implements PlayerInterface, Serializable {
         g.player.remove(this);
     }
     @Override
-    public void pass() {
+    public void pass() throws AgeOfEmpiresException {
         turnController();
     }
-
-    public boolean turnController() {
+    public void turn2(){
+        g.turn2();
+    }
+    public boolean turnController() throws AgeOfEmpiresException {
         if (g.turnControl(playerSira)) {
             Gold += 2;
             Wood += 10;
             Stone += 5;
             return true;
         } else {
-            Gold += 2;
-            Wood += 10;
-            Stone += 5;
-            return true;
+            return false;
         }
     }
 
     @Override
-    public void purchase(Item item) {
-        try {
+    public void purchase(Item item) throws AgeOfEmpiresException {
+
             if (getSoldierCount() + getWorkerCount() < 20 && turnController()) {
                 if (item.getClass() == Worker.class) {
                     if (Gold - 1 >= 0) {
@@ -138,10 +137,7 @@ public class Player implements PlayerInterface, Serializable {
             } else {
                 throw new AgeOfEmpiresException();
             }
-            System.out.println("Human sayısı:  " + (getSoldierCount() + getWorkerCount()));
-        } catch (AgeOfEmpiresException e) {
-            throw new RuntimeException(e);
-        }
+
     }
 
     public University getUniversity() {

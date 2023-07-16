@@ -29,12 +29,12 @@ public class Cavalry extends Soldier {
     }
 
     @Override
-    public void move(int y, int x) {
+    public void move(int y, int x) throws AgeOfEmpiresException {
         int oldX = this.x;
         int oldY = this.y;
         this.x = x - 1;
         this.y = y - 1;
-        try {
+
             if (player.turnController() && map.map[this.x][this.y].human == null && map.map[this.x][this.y].building == null) {
                 if (this.x <= oldX + 9 & this.x >= oldX - 9 & this.y == oldY) {
                     map.map[this.x][this.y].human = this;
@@ -72,25 +72,19 @@ public class Cavalry extends Soldier {
             } else {
                 throw new AgeOfEmpiresException();
             }
-        } catch (AgeOfEmpiresException e) {
-            throw new RuntimeException(e);
-        }
+
 
     }
 
     @Override
-    public void attack(int y, int x) {
+    public void attack(int y, int x) throws AgeOfEmpiresException {
         this.attackX = (x - 1);
-        this.attackY = (y - 1);//kod parametreli oldu
-        try {
-            if (player.turnController() && (this.x >= attackX - 1 && this.x <= attackX + 1) && (this.y <= attackY + 1 && this.y >= attackY - 1)) {
-                if (map.map[attackX][attackY].building != null && map.map[attackX][attackY].building.getPlayer() != this.player) { //Tower Atack yazınca!
+        this.attackY = (y - 1);
 
-                    System.out.println("bos degil: " + map.map[attackX][attackY].building.getClass() + " / " + map.map[attackX][attackY].building.getLifePoints());
+            if (player.turnController() && (this.x >= attackX - 1 && this.x <= attackX + 1) && (this.y <= attackY + 1 && this.y >= attackY - 1)) {
+                if (map.map[attackX][attackY].building != null && map.map[attackX][attackY].building.getPlayer() != this.player) {
 
                     map.map[attackX][attackY].building.setLifePoints(map.map[attackX][attackY].building.getLifePoints() - (damage + 4));
-
-                    System.out.println("bos degil: " + map.map[attackX][attackY].building.getClass() + " / " + map.map[attackX][attackY].building.getLifePoints());
 
                     if (map.map[attackX][attackY].building.getLifePoints() <= 0) {
                         map.map[attackX][attackY].building.death();
@@ -105,9 +99,7 @@ public class Cavalry extends Soldier {
 
                 } else if (map.map[attackX][attackY].human != null && map.map[attackX][attackY].human.getClass() == Cavalry.class && map.map[attackX][attackY].human.getPlayer() != this.player) {
 
-                    System.out.println("bos degil: " + map.map[attackX][attackY].human.getClass() + " / " + map.map[attackX][attackY].human.getLifePoints());
                     map.map[attackX][attackY].human.setLifePoints(map.map[attackX][attackY].human.getLifePoints() - (damage + 4));
-                    System.out.println("bos degil: " + map.map[attackX][attackY].human.getClass() + " / " + map.map[attackX][attackY].human.getLifePoints());
                     if (map.map[attackX][attackY].human.getLifePoints() <= 0) {
                         map.map[attackX][attackY].human.death();
 
@@ -117,9 +109,7 @@ public class Cavalry extends Soldier {
 
                 } else if (map.map[attackX][attackY].human != null && map.map[attackX][attackY].human.getPlayer() != this.player) {
 
-                    System.out.println("bos degil: " + map.map[attackX][attackY].human.getClass() + " / " + map.map[attackX][attackY].human.getLifePoints());
                     map.map[attackX][attackY].human.setLifePoints(map.map[attackX][attackY].human.getLifePoints() - (damage + 9));
-                    System.out.println("bos degil: " + map.map[attackX][attackY].human.getClass() + " / " + map.map[attackX][attackY].human.getLifePoints());
                     if (map.map[attackX][attackY].human.getLifePoints() <= 0) {
                         map.map[attackX][attackY].human.death();
 
@@ -136,25 +126,16 @@ public class Cavalry extends Soldier {
                 throw new AgeOfEmpiresException();
             }
 
-
-        } catch (AgeOfEmpiresException e) {
-            throw new RuntimeException(e);
-        }
-
     }
 
     public void reattack(int y, int x) {
         this.attackX = (x - 1);
-        this.attackY = (y - 1);//kod parametreli oldu
+        this.attackY = (y - 1);
 
         if ((this.x >= attackX - 1 && this.x <= attackX + 1) && (this.y <= attackY + 1 && this.y >= attackY - 1)) {
-            if (map.map[attackX][attackY].building != null) { //Tower Atack yazınca!
-
-                System.out.println("bos degil: " + map.map[attackX][attackY].building.getClass() + " / " + map.map[attackX][attackY].building.getLifePoints());
+            if (map.map[attackX][attackY].building != null) {
 
                 map.map[attackX][attackY].building.setLifePoints(map.map[attackX][attackY].building.getLifePoints() - (damage + 4));
-
-                System.out.println("bos degil: " + map.map[attackX][attackY].building.getClass() + " / " + map.map[attackX][attackY].building.getLifePoints());
 
                 if (map.map[attackX][attackY].building.getLifePoints() <= 0) {
                     map.map[attackX][attackY].building.death();
@@ -163,9 +144,7 @@ public class Cavalry extends Soldier {
 
             } else if (map.map[attackX][attackY].human != null && map.map[attackX][attackY].human.getClass() == Cavalry.class) {
 
-                System.out.println("bos degil: " + map.map[attackX][attackY].human.getClass() + " / " + map.map[attackX][attackY].human.getLifePoints());
                 map.map[attackX][attackY].human.setLifePoints(map.map[attackX][attackY].human.getLifePoints() - (damage + 4));
-                System.out.println("bos degil: " + map.map[attackX][attackY].human.getClass() + " / " + map.map[attackX][attackY].human.getLifePoints());
                 if (map.map[attackX][attackY].human.getLifePoints() <= 0) {
                     map.map[attackX][attackY].human.death();
 
@@ -173,9 +152,7 @@ public class Cavalry extends Soldier {
 
             } else if (map.map[attackX][attackY].human != null) {
 
-                System.out.println("bos degil: " + map.map[attackX][attackY].human.getClass() + " / " + map.map[attackX][attackY].human.getLifePoints());
                 map.map[attackX][attackY].human.setLifePoints(map.map[attackX][attackY].human.getLifePoints() - (damage + 9));
-                System.out.println("bos degil: " + map.map[attackX][attackY].human.getClass() + " / " + map.map[attackX][attackY].human.getLifePoints());
                 if (map.map[attackX][attackY].human.getLifePoints() <= 0) {
                     map.map[attackX][attackY].human.death();
 

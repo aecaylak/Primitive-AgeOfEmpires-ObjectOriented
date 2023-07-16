@@ -18,7 +18,7 @@ public class Worker extends Human implements WorkerInterface {
 
     }
 
-    Worker(Map map, int x, int y, Player player) { //MB'den kod parametreli gelir
+    Worker(Map map, int x, int y, Player player) {
         this.player = player;
         this.map = map;
         this.map.map[x][y].human = this;
@@ -29,18 +29,14 @@ public class Worker extends Human implements WorkerInterface {
 
 
     @Override
-    public void attack(int y, int x) {
+    public void attack(int y, int x) throws AgeOfEmpiresException {
         this.attackX = (x - 1);
-        this.attackY = (y - 1);//kod parametreli oldu
-        try {
-            if ((this.x >= attackX - 1 & this.x <= attackX + 1) & (this.y <= attackY + 1 & this.y >= attackY - 1) & player.turnController() /*& map.map[attackX][attackY].human.getPlayer() != this.player & map.map[attackX][attackY].building.getPlayer() != this.player */) {
+        this.attackY = (y - 1);
+
+            if ((this.x >= attackX - 1 & this.x <= attackX + 1) & (this.y <= attackY + 1 & this.y >= attackY - 1) & player.turnController() ) {
                 if (map.map[attackX][attackY].building != null && map.map[attackX][attackY].building.getPlayer() != this.player) {
 
-                    System.out.println("bos degil: " + map.map[attackX][attackY].building.getClass() + " / " + map.map[attackX][attackY].building.getLifePoints());
-
                     map.map[attackX][attackY].building.setLifePoints(map.map[attackX][attackY].building.getLifePoints() - damage1);
-
-                    System.out.println("bos degil: " + map.map[attackX][attackY].building.getClass() + " / " + map.map[attackX][attackY].building.getLifePoints());
 
                     if (map.map[attackX][attackY].building.getLifePoints() <= 0) {
                         map.map[attackX][attackY].building.death();
@@ -49,15 +45,13 @@ public class Worker extends Human implements WorkerInterface {
                         map.map[attackX][attackY].building.reattack(this.y + 1, this.x + 1);
                     }
 
-                } else if (map.map[attackX][attackY].human != null && map.map[attackX][attackY].human.getClass() == Spearman.class && map.map[attackX][attackY].human.getPlayer() != this.player) { //Tower Atack yazınca!
+                } else if (map.map[attackX][attackY].human != null && map.map[attackX][attackY].human.getClass() == Spearman.class && map.map[attackX][attackY].human.getPlayer() != this.player) {
 
                     map.map[attackX][attackY].human.attack2(this.y + 1, this.x + 1);
 
                 } else if (map.map[attackX][attackY].human != null && map.map[attackX][attackY].human.getPlayer() != this.player) {
 
-                    System.out.println("bos degil: " + map.map[attackX][attackY].human.getClass() + " / " + map.map[attackX][attackY].human.getLifePoints());
                     map.map[attackX][attackY].human.setLifePoints(map.map[attackX][attackY].human.getLifePoints() - damage1);
-                    System.out.println("bos degil: " + map.map[attackX][attackY].human.getClass() + " / " + map.map[attackX][attackY].human.getLifePoints());
                     if (map.map[attackX][attackY].human.getLifePoints() <= 0) {
                         map.map[attackX][attackY].human.death();
 
@@ -67,40 +61,29 @@ public class Worker extends Human implements WorkerInterface {
 
 
                 } else {
-                    System.out.println("bos");
                     throw new AgeOfEmpiresException();
                 }
             } else {
-                System.out.println("bos");
                 throw new AgeOfEmpiresException();
             }
-
-
-        } catch (AgeOfEmpiresException e) {
-            throw new RuntimeException(e);
-        }
 
     }
 
     public void reattack(int y, int x) {
         this.attackX = (x - 1);
-        this.attackY = (y - 1);//kod parametreli oldu
+        this.attackY = (y - 1);
 
         if ((this.x >= attackX - 1 & this.x <= attackX + 1) & (this.y <= attackY + 1 & this.y >= attackY - 1)) {
 
-            if (map.map[attackX][attackY].building != null) { //Tower Atack yazınca!
+            if (map.map[attackX][attackY].building != null) {
 
-                System.out.println("bos degil: " + map.map[attackX][attackY].building.getClass() + " / " + map.map[attackX][attackY].building.getLifePoints());
 
                 map.map[attackX][attackY].building.setLifePoints(map.map[attackX][attackY].building.getLifePoints() - damage1);
 
-                System.out.println("bos degil: " + map.map[attackX][attackY].building.getClass() + " / " + map.map[attackX][attackY].building.getLifePoints());
 
             } else if (map.map[attackX][attackY].human != null) {
 
-                System.out.println("bos degil: " + map.map[attackX][attackY].human.getClass() + " / " + map.map[attackX][attackY].human.getLifePoints());
                 map.map[attackX][attackY].human.setLifePoints(map.map[attackX][attackY].human.getLifePoints() - damage1);
-                System.out.println("bos degil: " + map.map[attackX][attackY].human.getClass() + " / " + map.map[attackX][attackY].human.getLifePoints());
 
             }
 
@@ -111,12 +94,12 @@ public class Worker extends Human implements WorkerInterface {
 
 
     @Override
-    public void move(int y, int x) { //x ile y yer değişti, arayuz parametreli geldi
+    public void move(int y, int x) throws AgeOfEmpiresException {
         int oldX = this.x;
-        int oldY = this.y; //kod parametreli this.x'ler kod parametreli
+        int oldY = this.y;
         this.x = (x - 1);
         this.y = (y - 1);
-        try {
+
             if(player.turnController()){
                 if (map.map[this.x][this.y].human == null & map.map[this.x][this.y].building == null) { //kod p
                     if (this.x <= oldX + 3 & this.x >= oldX - 3 & this.y == oldY) {
@@ -140,18 +123,13 @@ public class Worker extends Human implements WorkerInterface {
             }else {
                 throw new AgeOfEmpiresException();
             }
-        } catch (AgeOfEmpiresException e) {
-            throw new RuntimeException(e);
-        }
-
-
     }
 
     @Override
-    public void build(Building b) {
+    public void build(Building b) throws AgeOfEmpiresException {
         if(player.turnController()){
             this.building = b;
-            try {
+
                 if (building.getClass() == University.class && this.player.getGold() - 50 >= 0 && this.player.getWood() - 30 >= 0 && this.player.getStone() - 5 >= 0) {
                     this.map.map[this.x][this.y].building = new University(this.player);
                     this.map.map[this.x][this.y].building.setX(this.x);
@@ -173,9 +151,7 @@ public class Worker extends Human implements WorkerInterface {
                 } else {
                     throw new AgeOfEmpiresException();
                 }
-            } catch (AgeOfEmpiresException e) {
-                throw new RuntimeException(e);
-            }
+
         }
     }
 
@@ -220,6 +196,7 @@ public class Worker extends Human implements WorkerInterface {
     public void setSymbol(String symbol) {
         this.symbol = symbol;
     }
+
     public Player getPlayer() {
         return player;
     }

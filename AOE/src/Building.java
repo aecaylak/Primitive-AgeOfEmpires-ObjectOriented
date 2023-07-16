@@ -6,7 +6,7 @@ public class Building extends Item implements BuildingInterface{
     public void death(){
 
     }
-    public void attack(int y, int x) {
+    public void attack(int y, int x) throws AgeOfEmpiresException {
     }
     public void reattack(int y, int x) {
     }

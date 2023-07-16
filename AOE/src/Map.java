@@ -3,12 +3,12 @@ import java.util.ArrayList;
 
 public class Map implements MapInterface, Serializable {
 
-    Item[][] map; //oyun map'i burda tutuluyor
+    Item[][] map;
 
 
     public void MakeMap(int NumberOfPlayers, ArrayList<Player> players){
 
-        Item[][] tempMap = new Item[50][100]; //temp Mapte
+        Item[][] tempMap = new Item[50][100];
 
         for(int i =0;i<50;i++){
             for (int j=0;j<100;j++){
@@ -17,7 +17,6 @@ public class Map implements MapInterface, Serializable {
         }
 
         int CountMainBuilding = NumberOfPlayers;
-        MainBuilding tempMB;
 
 
         for (int i =0;i<CountMainBuilding;i++){
@@ -91,21 +90,6 @@ public class Map implements MapInterface, Serializable {
                 }else if(map[i][j].building.getClass() == University.class ){
                     s += "U ";
                 }
-
-/*
-                else if (map[i][j].human.getClass() == Worker.class) {
-                    s+= "W ";
-                }else if (map[i][j].human.getClass() == Swordman.class) {
-                    s+= "K ";
-                }else if (map[i][j].human.getClass() == Archer.class) {
-                    s+= "O ";
-                }else if (map[i][j].human.getClass() == Spearman.class) {
-                    s+= "S ";
-                }else if (map[i][j].human.getClass() == Cavalry.class) {
-                    s+= "A ";
-                }else if (map[i][j].human.getClass() == Catapult.class) {
-                    s+= "C ";
-                }*/
             }
             s+= "\n";
         }
