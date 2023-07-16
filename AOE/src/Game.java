@@ -68,6 +68,14 @@ public class Game implements GameInterface, Serializable {
         }
     }
 
+    public void turn2(){
+        if(playerTurn == 1){
+            playerTurn= 4;
+        }else{
+            playerTurn--;
+        }
+
+    }
 
     @Override
     public Player getPlayer(int x) {

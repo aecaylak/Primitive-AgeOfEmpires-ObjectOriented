@@ -60,6 +60,9 @@ public class Player implements PlayerInterface, Serializable {
         turnController();
     }
 
+    public void turn2(){
+      g.turn2();
+    }
     public boolean turnController() {
         if (g.turnControl(playerSira)) {
             Gold += 2;
@@ -67,10 +70,7 @@ public class Player implements PlayerInterface, Serializable {
             Stone += 5;
             return true;
         } else {
-            Gold += 2;
-            Wood += 10;
-            Stone += 5;
-            return true;
+            return false;
         }
     }
 

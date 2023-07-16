@@ -1,16 +1,23 @@
 public class Main {
     public static void main(String[] args) {
 
-        //Game g = new Game(2);
-        Game g = new Game("saveBinary.txt", true);
+        Game g = new Game(2);
+        //Game g = new Game("saveBinary.txt", true);
 
-        g.getPlayer(0).getSoldier(0).move(99,50);
-        g.getPlayer(0).getSoldier(0).attack(100,50);
-        g.getPlayer(0).getSoldier(0).attack(100,50);
 
-//
-//        g.getPlayer(0).purchase(new Cavalry());
-//        g.getPlayer(1).purchase(new Cavalry());
+
+        g.getPlayer(0).purchase(new Cavalry());
+        g.getPlayer(1).purchase(new Cavalry());
+
+        g.getPlayer(0).getSoldier(0).move(7, 4);
+        g.getPlayer(1).getSoldier(0).move(22, 47);
+        g.getPlayer(1).getSoldier(0).move(94, 47);
+        g.getPlayer(0).getSoldier(0).move(13, 7);
+        g.getPlayer(1).getSoldier(0).move(92, 45);
+        g.getPlayer(0).getSoldier(0).move(19, 10);
+
+
+
 //        g.getPlayer(0).getSoldier(0).move(7, 4);
 //        g.getPlayer(1).getSoldier(0).move(94, 47);
 //        g.getPlayer(0).getSoldier(0).move(13, 7);
@@ -67,10 +74,13 @@ public class Main {
 //        g.getPlayer(0).getSoldier(0).attack(100, 50);
 //        g.getPlayer(1).getSoldier(0).move(15, 1);
 //        g.getPlayer(1).getSoldier(0).move(6, 1);
-//        for (int i = 0; i < 14; i++) {
+//        for (int i = 0; i < 1; i++) {
 //            g.getPlayer(0).getSoldier(0).attack(100, 50);
+//            g.getPlayer(1).pass();
 //        }
-//        g.getPlayer(0).getSoldier(0).move(95,50);
+//        g.getPlayer(0).getSoldier(0).move(85,50);
+//        g.getPlayer(1).pass();
+//        g.getPlayer(0).getSoldier(0).move(96,50);
 
 
 
