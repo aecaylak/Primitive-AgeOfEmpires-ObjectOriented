@@ -8,13 +8,13 @@ public class Soldier extends Human{
     }
 
 
-    public void attack2(int y, int x){
+    public void attack2(int y, int x) throws AgeOfEmpiresException {
 
     }
     public void death(){
     }
     @Override
-    public void attack(int x, int y) {
+    public void attack(int x, int y) throws AgeOfEmpiresException {
 
     }
     @Override
@@ -31,7 +31,7 @@ public class Soldier extends Human{
     }
 
     @Override
-    public void move(int y, int x) {
+    public void move(int y, int x) throws AgeOfEmpiresException {
 
     }
 

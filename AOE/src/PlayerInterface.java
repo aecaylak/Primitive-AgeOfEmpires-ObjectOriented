@@ -17,7 +17,7 @@ public interface PlayerInterface {
 	
 	
 	// bir şey yapmadan pass geçme işlemi
-	void pass();
+	void pass() throws AgeOfEmpiresException;
 	
 	//  index'inci askeri döner
 	Soldier getSoldier(int index);
@@ -26,7 +26,7 @@ public interface PlayerInterface {
 	Worker getWorker(int index);
 	
 	// belirtilen item'ı almaya çalışır. Alamıyorsa ya da öyle bir item yoksa  AgeofEmpiresException'ı atmalı
-	void purchase(Item item);
+	void purchase(Item item) throws AgeOfEmpiresException;
 	
 	University getUniversity();
 	

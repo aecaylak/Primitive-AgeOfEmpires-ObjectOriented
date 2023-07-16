@@ -10,11 +10,11 @@ public class Human extends Item implements HumanInterface{
     public void death(){
 
     }
-    public void attack2(int y, int x){
+    public void attack2(int y, int x) throws AgeOfEmpiresException {
 
     }
     @Override
-    public void attack(int x, int y) {
+    public void attack(int x, int y) throws AgeOfEmpiresException {
 
     }
 
@@ -23,7 +23,7 @@ public class Human extends Item implements HumanInterface{
     }
 
     @Override
-    public void move(int x, int y) {
+    public void move(int x, int y) throws AgeOfEmpiresException {
 
     }
 

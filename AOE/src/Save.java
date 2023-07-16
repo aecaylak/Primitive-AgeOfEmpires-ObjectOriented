@@ -22,5 +22,17 @@ public class Save {
             e.printStackTrace();
         }
     }
+    public void save_text(){
+        try {
+            PrintWriter saving = new PrintWriter(new FileOutputStream(filename));
+            saving.print(g);
+            saving.close();
+            System.out.println("Saving complate" + filename.toUpperCase(Locale.ROOT));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
 
 }
