@@ -18,7 +18,7 @@ public class University extends Building implements UniversityInterface {
     }
 
     University(Player player) {
-        player.universite.add(this);
+
         this.player = player;
         this.player.setUniversity(this);
     }

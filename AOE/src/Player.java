@@ -18,7 +18,7 @@ public class Player implements PlayerInterface {
     ArrayList<Soldier> soldiers = new ArrayList<>();
     ArrayList<Worker> workers = new ArrayList<>();
     ArrayList<Tower> towers = new ArrayList<>();
-    ArrayList<University> universite = new ArrayList<>();
+
 
     University university;
     Game g;
@@ -46,9 +46,7 @@ public class Player implements PlayerInterface {
         for (int i =0; i<towers.size();i++){
             map.map[towers.get(i).getX()][towers.get(i).getY()].building=null;
         }
-        for (int i =0; i<universite.size();i++){
-            map.map[universite.get(i).getX()][universite.get(i).getY()].building=null;
-        }
+        map.map[university.getX()][university.getY()].building=null;
         map.map[mainBuilding.getX()][mainBuilding.getY()].building = null;
         g.player.remove(this);
     }
