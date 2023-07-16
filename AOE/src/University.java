@@ -5,10 +5,6 @@ public class University extends Building implements UniversityInterface {
     private int y;
     private String symbol = "U";
 
-    int infantryBoost = 0;
-    int cavalryBoost = 0;
-    int catapultBoost = 0;
-
     Soldier soldier;
 
     Player player;
@@ -27,32 +23,33 @@ public class University extends Building implements UniversityInterface {
 
         for (int i = 0; i < player.getSoldierCount(); i++) {
             if (player.soldiers.get(i).getClass() != Cavalry.class && player.soldiers.get(i).getClass() != Catapult.class) {
-                player.soldiers.get(i).setLifePoints(player.soldiers.get(i).getLifePoints() - infantryBoost);
+                player.soldiers.get(i).setLifePoints(player.soldiers.get(i).getLifePoints() - player.infantryBoost);
                 player.soldiers.get(i).setDamage(1);
             }
         }for (int i = 0; i < player.getSoldierCount(); i++) {
             if (player.soldiers.get(i).getClass() == Cavalry.class) {
-                player.soldiers.get(i).setLifePoints(player.soldiers.get(i).getLifePoints() - cavalryBoost);
+                player.soldiers.get(i).setLifePoints(player.soldiers.get(i).getLifePoints() - player.cavalryBoost);
                 player.soldiers.get(i).setDamage(1);
             }
         }for (int i = 0; i < player.getSoldierCount(); i++) {
             if (player.soldiers.get(i).getClass() == Catapult.class) {
-                player.soldiers.get(i).setLifePoints(player.soldiers.get(i).getLifePoints() - catapultBoost);
+                player.soldiers.get(i).setLifePoints(player.soldiers.get(i).getLifePoints() -  player.catapultBoost);
                 player.soldiers.get(i).setDamage(1);
 
             }
         }
-        this.infantryBoost = 0;
-        this.cavalryBoost = 0;
-        this.catapultBoost = 0;
-        System.out.println(this.x + " / " + this.y);
+
+        player.infantryBoost = 0;
+        player.cavalryBoost = 0;
+        player.catapultBoost = 0;
+
         player.map.map[this.x][this.y].building = null;
     }
 
     @Override
     public void trainInfantry() {
         try {
-            if (player.turnController()) {
+            if (player.turnController() && player.getGold() >= 50) {
                 this.player.setGold(this.player.getGold() - 50);
                 player.infantryBoost++;
                 for (int i = 0; i < player.getSoldierCount(); i++) {
@@ -72,7 +69,7 @@ public class University extends Building implements UniversityInterface {
     @Override
     public void trainCavalry() {
         try {
-            if (player.turnController()) {
+            if (player.turnController() && player.getGold() >= 50) {
                 this.player.setGold(this.player.getGold() - 50);
                 player.cavalryBoost++;
                 for (int i = 0; i < player.getSoldierCount(); i++) {
@@ -93,7 +90,7 @@ public class University extends Building implements UniversityInterface {
     @Override
     public void trainCatapult() {
         try {
-            if (player.turnController()) {
+            if (player.turnController() && player.getGold() >= 50) {
                 this.player.setGold(this.player.getGold() - 50);
                 player.catapultBoost++;
                 for (int i = 0; i < player.getSoldierCount(); i++) {

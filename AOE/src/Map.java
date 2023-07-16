@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Map implements MapInterface {
+public class Map implements MapInterface, Serializable {
 
     Item[][] map; //oyun map'i burda tutuluyor
 

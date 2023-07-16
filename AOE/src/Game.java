@@ -1,11 +1,30 @@
+import java.io.*;
 import java.util.ArrayList;
 
-public class Game implements GameInterface {
+public class Game implements GameInterface, Serializable {
     Map map = new Map();
 
     ArrayList<Player> player = new ArrayList<>();
     int numberOfPlayer;
 
+    public Game(String filename, boolean x) {
+        if(x){
+            try {
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream(filename));
+                Game game = (Game) in.readObject();
+                in.close();
+
+                this.player = game.player;
+                this.numberOfPlayer = game.numberOfPlayer;
+                this.map = game.map;
+                this.playerTurn = game.playerTurn;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+        }
+    }
 
     public Game(int NumberOfPlayers) {
         this.numberOfPlayer = NumberOfPlayers;
@@ -69,6 +88,7 @@ public class Game implements GameInterface {
 
     @Override
     public void save_binary(String filename) {
-
+        Save saveBinary = new Save(this, filename);
+        saveBinary.save_binary();
     }
 }

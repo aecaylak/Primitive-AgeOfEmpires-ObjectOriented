@@ -19,7 +19,6 @@ public class MainBuilding extends Building{
     public void death() {
         System.out.println(this.x + " / " + this.y);
         player.lose();
-        //player.map.map[this.x][this.y].building = null; KAYBETTIN!
     }
 
 

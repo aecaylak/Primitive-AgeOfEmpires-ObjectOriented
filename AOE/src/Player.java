@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player implements PlayerInterface {
+public class Player implements PlayerInterface, Serializable {
 
     Map map;
 
@@ -48,11 +49,15 @@ public class Player implements PlayerInterface {
         }
         map.map[university.getX()][university.getY()].building=null;
         map.map[mainBuilding.getX()][mainBuilding.getY()].building = null;
+
+        if(g.player.size() == 2) {
+            System.out.println("Oyun bitti");
+        }
         g.player.remove(this);
     }
     @Override
     public void pass() {
-        g.turnControl(playerSira);
+        turnController();
     }
 
     public boolean turnController() {
@@ -62,7 +67,10 @@ public class Player implements PlayerInterface {
             Stone += 5;
             return true;
         } else {
-            return false;
+            Gold += 2;
+            Wood += 10;
+            Stone += 5;
+            return true;
         }
     }
 
