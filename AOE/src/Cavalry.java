@@ -9,11 +9,13 @@ public class Cavalry extends Soldier {
     int damage = 1;
     Player player;
 
+
     Cavalry() {
 
     }
 
     Cavalry(Map map, int x, int y, int boost, Player player) {
+
         this.player = player;
         this.damage += boost;
         this.lifePoints += boost;
@@ -73,7 +75,9 @@ public class Cavalry extends Soldier {
                 throw new AgeOfEmpiresException();
             }
         } catch (AgeOfEmpiresException e) {
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
+            System.out.println("Cavalry Movement Error");
+            player.turn2();
         }
 
     }
